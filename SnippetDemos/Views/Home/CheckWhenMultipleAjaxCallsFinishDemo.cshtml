@@ -1,0 +1,74 @@
+﻿<script>
+    $(function () {
+        $(document).on('click', '#btnRunMethod1', function () {
+            clearResult();
+
+            // Where get is a generic ajax function.
+            var get1 = get('/Home/CheckWhenMultipleAjaxCallsFinishAction', { actionNo: 1, delayInSeconds: 2 }).done(function (result) {
+                $('#divResult').append(result + "</br>");
+            });
+            var get2 = get('/Home/CheckWhenMultipleAjaxCallsFinishAction', { actionNo: 2, delayInSeconds: 5 }).done(function (result) {
+                $('#divResult').append(result + "</br>");
+            });
+
+            // Use $.when to check if both ajax calls are successful
+            $.when(get1, get2).then(function (get1Result, get2Result) {
+                // Done callback (fires after all finish successfully)
+                $('#divResult').append("Both calls were successful.");
+            }, function (data) {
+                // Fail callback (fires as soon as one fails)
+                $('#divResult').append("a call was unsuccessful.");
+            });
+        });
+
+        $(document).on('click', '#btnRunMethod2', function () {
+            clearResult();
+
+            var ajaxSettings = [
+                {
+                    url: '/Home/CheckWhenMultipleAjaxCallsFinishAction',
+                    data: { actionNo: 1, delayInSeconds: 2 }
+                },
+                {
+                    url: '/Home/CheckWhenMultipleAjaxCallsFinishAction',
+                    data: { actionNo: 2, delayInSeconds: 5 }
+                }
+            ]
+
+            // Map returned deferred objects to an array.
+            var deferreds = $.map(ajaxSettings, function (settings) {
+                // Where get is a generic ajax function.
+                return get(settings.url, settings.data).done(function (result) {
+                    $('#divResult').append(result + "</br>");
+                });;
+            });
+
+            // Use .apply onto array from deferreds
+            // Remember to use .get()
+            $.when.apply($, deferreds).then(function () {
+                // Done callback (fires after all finish successfully)
+                $('#divResult').append("Both calls were successful.");
+            }, function (data) {
+                // Fail callback (fires as soon as one fails)
+                $('#divResult').append("a call was unsuccessful.");
+            });
+        });
+    });
+
+    function clearResult() {
+        $('#divResult').html(null);
+    }
+</script>
+
+
+
+<div class="form-group">
+    <button id="btnRunMethod1" class="btn btn-success">Run method 1</button>
+</div>
+<div class="form-group">
+    <button id="btnRunMethod2" class="btn btn-success">Run method 2</button>
+</div>
+
+<h4>Results</h4>
+
+<div id="divResult"></div>

@@ -33,11 +33,6 @@ namespace SnippetDemos
             bundles.Add(new StyleBundle("~/Content/css/jquery-ui")
                    .Include("~/Content/themes/base/jquery-ui.min.css",
                     new CssRewriteUrlTransform()));
-
-            if (!Debugger.IsAttached)
-            {
-                BundleTable.EnableOptimizations = true;
-            }
         }
     }
 }

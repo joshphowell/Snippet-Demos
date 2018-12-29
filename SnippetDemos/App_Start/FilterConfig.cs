@@ -1,7 +1,7 @@
 ﻿using SnippetDemos.Attributes;
 using System.Web.Mvc;
 
-namespace CodeCache
+namespace SnippetDemos
 {
     public class FilterConfig
     {
