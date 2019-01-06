@@ -1,0 +1,27 @@
+﻿<table id="example" class="display" style="width: 100%">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+</table>
+
+<script>
+    $(function () {
+        $('#example').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "/Demo/JQueryDataTablePartial?rowCount=20",
+            "columns": [
+                { "data": "date" },
+                { "data": "name" },
+                { "data": "description" },
+                { "data": "active" }
+            ]
+        });
+    });
+</script>
+

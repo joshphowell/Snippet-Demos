@@ -4,10 +4,10 @@
             clearResult();
 
             // Where get is a generic ajax function.
-            var get1 = get('/Home/CheckWhenMultipleAjaxCallsFinishAction', { actionNo: 1, delayInSeconds: 2 }).done(function (result) {
+            var get1 = get('/Demo/CheckWhenMultipleAjaxCallsFinish', { actionNo: 1, delayInSeconds: 2 }).done(function (result) {
                 $('#divResult').append(result + "</br>");
             });
-            var get2 = get('/Home/CheckWhenMultipleAjaxCallsFinishAction', { actionNo: 2, delayInSeconds: 5 }).done(function (result) {
+            var get2 = get('/Demo/CheckWhenMultipleAjaxCallsFinish', { actionNo: 2, delayInSeconds: 5 }).done(function (result) {
                 $('#divResult').append(result + "</br>");
             });
 
@@ -26,11 +26,11 @@
 
             var ajaxSettings = [
                 {
-                    url: '/Home/CheckWhenMultipleAjaxCallsFinishAction',
+                    url: '/Demo/CheckWhenMultipleAjaxCallsFinish',
                     data: { actionNo: 1, delayInSeconds: 2 }
                 },
                 {
-                    url: '/Home/CheckWhenMultipleAjaxCallsFinishAction',
+                    url: '/Demo/CheckWhenMultipleAjaxCallsFinish',
                     data: { actionNo: 2, delayInSeconds: 5 }
                 }
             ]
